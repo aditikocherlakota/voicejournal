@@ -1,0 +1,100 @@
+<html>
+    <head>
+            <meta charset="utf-8">
+            <title>Heatmaps</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+          height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+    </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            var map, heatmap1, heatmap2;
+
+            function initMap() {
+              map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 2,
+                center: {lat: 0, lng: 0},
+                mapTypeId: 'terrain'
+              });
+
+              heatmap1 = new google.maps.visualization.HeatmapLayer({
+                data: getPoints1(),
+                map: map,
+                gradient: getGradient()
+              });
+
+              heatmap2 = new google.maps.visualization.HeatmapLayer({
+                data: getPoints2(),
+                map: map,
+              });
+            }
+
+            function toggleHeatmap() {
+              heatmap1.setMap(heatmap1.getMap() ? null : map);
+            }
+
+            function getGradient() {
+                return [
+          'rgba(0, 255, 255, 0)',
+          'rgba(0, 255, 255, 1)',
+          'rgba(0, 191, 255, 1)',
+          'rgba(0, 127, 255, 1)',
+          'rgba(0, 63, 255, 1)',
+          'rgba(0, 0, 255, 1)',
+          'rgba(0, 0, 223, 1)',
+          'rgba(0, 0, 191, 1)',
+          'rgba(0, 0, 159, 1)',
+          'rgba(0, 0, 127, 1)',
+          'rgba(63, 0, 91, 1)',
+          'rgba(127, 0, 63, 1)',
+          'rgba(191, 0, 31, 1)',
+          'rgba(255, 0, 0, 1)'
+                ];
+            }
+
+            // Heatmap data: 500 Points
+            function getPoints1() {
+              return [
+                new google.maps.LatLng(37.782551, -122.445368),
+
+                
+              ];
+            }
+
+            function getPoints2() {
+                return [
+                new google.maps.LatLng(42.3601, -71.0589)]
+            }
+
+            function get_text (){
+
+              $.ajax({
+                url:'https://raw.githubusercontent.com/jbrownlee/Datasets/master/iris.csv',
+                success: function (data){
+                    console.log("It actually worked");
+                  //parse your data here
+                  //you can split into lines using data.split('\n') 
+                  //an use regex functions to effectively parse it
+                }
+              });
+            }
+
+            get_text();
+        </script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmXCbqn5IClcAKgiu15r0jEYWOt-15YZM&libraries=visualization&callback=initMap">
+        </script>
+    </body>
+</html>
